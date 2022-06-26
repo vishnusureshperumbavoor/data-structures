@@ -39,6 +39,7 @@ void linkedlist<T> :: addhead(T data){
     if(tail==NULL)
         tail = head;
     size++;
+    // cout << "head = " << head << endl;
 }
 template <class T>
 void linkedlist<T> :: addtail(T data){
@@ -66,7 +67,7 @@ void linkedlist<T> :: removeTail(){
     node *temp = head;
     node *temp2 = tail;
     while(temp->link->link!=NULL){
-        cout << temp->data << "\t";
+        // cout << temp->data << "\t";
         temp = temp->link;
     }
     temp->link = NULL;
@@ -76,28 +77,50 @@ void linkedlist<T> :: removeTail(){
 }
 template <class T>
 void linkedlist<T> :: addNode(T data, T pos){
-    // cout << data << endl << pos << endl;
-    node *temp = head;
-    node *temp2 = new node(data);
-    while(pos!=2){
+    // cout << "data = " << data << endl;
+    // cout << "pos = " << pos << endl;
+    // cout << "size = " <<  size << endl;
+    if(pos==1){
+        // cout << "addhead called" << endl;
+        addhead(data);
+    }
+    else if(pos==size+1){
+        // cout << "addtail called" << endl;
+        addtail(data);
+    }
+    else{
+        node *temp = head;
+        node *temp2 = new node(data);
+        while(pos!=2){
         temp = temp->link;
         pos--;
+        }
+        temp2->link = temp->link;
+        temp->link = temp2;
+        size++;
     }
-    temp2->link = temp->link;
-    temp->link = temp2;
-    size++;
 }
 template <class T>
 void linkedlist<T> :: removeNode(T pos){
-    node *temp = head;
-    while(pos!=2){
+    if(pos==1){
+        // cout << "remove head called" << endl;
+        removeHead();
+    }
+    else if(pos==size){
+        // cout << "remove tail called" << endl;
+        removeTail();
+    }
+    else{
+        node *temp = head;
+        while(pos!=2){
         temp = temp->link;
         pos--;
+        }
+        node *temp2 = temp->link;
+        temp->link = temp2->link;
+        delete temp2;
+        size--;
     }
-    node *temp2 = temp->link;
-    temp->link = temp2->link;
-    delete temp2;
-    size--;
 }
 template <class T>
 void linkedlist<T> :: find(T data){
@@ -129,12 +152,14 @@ void linkedlist<T> :: findkth(T pos){
 }
 template <class T>
 void linkedlist<T> :: list(){
+    // cout << "head = " << head << endl;
     node *temp = head;
     while(temp!=NULL){
         cout << temp->data << "\t";
         temp = temp->link;
     }
     cout << endl;
+    exit(0);
 }
 int main(){
     int num,head,tail,data,pos;
@@ -182,6 +207,8 @@ int main(){
             case 9:
                 l.list();
                 break;
+            case 10:
+                exit(0);
         }
     }
 }
