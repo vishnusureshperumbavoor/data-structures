@@ -12,15 +12,14 @@ class linkedlist{
         }
     }*head,*tail;
     public :
-    linkedlist();
-    void insert(T);
-    void delqueue();
-    void list();
+    	linkedlist();
+    	void insert(T);
+    	void delqueue();
+    	void list();
 };
 template <typename T>
 linkedlist<T> :: linkedlist(){
-    head = NULL;
-    tail = NULL;
+    head = tail = NULL;
 }
 template <typename T>
 void linkedlist<T> :: insert(T data){
