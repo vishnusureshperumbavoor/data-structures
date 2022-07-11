@@ -34,12 +34,10 @@ linkedlist<T> :: linkedlist(){
 }
 template <class T>
 void linkedlist<T> :: addhead(T data){
-    // cout << data << endl;
     head = new node(data,head);
     if(tail==NULL)
         tail = head;
     size++;
-    // cout << "head = " << head << endl;
 }
 template <class T>
 void linkedlist<T> :: addtail(T data){
@@ -67,7 +65,6 @@ void linkedlist<T> :: removeTail(){
     node *temp = head;
     node *temp2 = tail;
     while(temp->link->link!=NULL){
-        // cout << temp->data << "\t";
         temp = temp->link;
     }
     temp->link = NULL;
@@ -77,15 +74,10 @@ void linkedlist<T> :: removeTail(){
 }
 template <class T>
 void linkedlist<T> :: addNode(T data, T pos){
-    // cout << "data = " << data << endl;
-    // cout << "pos = " << pos << endl;
-    // cout << "size = " <<  size << endl;
     if(pos==1){
-        // cout << "addhead called" << endl;
         addhead(data);
     }
     else if(pos==size+1){
-        // cout << "addtail called" << endl;
         addtail(data);
     }
     else{
@@ -103,11 +95,9 @@ void linkedlist<T> :: addNode(T data, T pos){
 template <class T>
 void linkedlist<T> :: removeNode(T pos){
     if(pos==1){
-        // cout << "remove head called" << endl;
         removeHead();
     }
     else if(pos==size){
-        // cout << "remove tail called" << endl;
         removeTail();
     }
     else{
@@ -152,7 +142,6 @@ void linkedlist<T> :: findkth(T pos){
 }
 template <class T>
 void linkedlist<T> :: list(){
-    // cout << "head = " << head << endl;
     node *temp = head;
     while(temp!=NULL){
         cout << temp->data << "\t";
@@ -169,12 +158,10 @@ int main(){
         cin >> num;
         switch(num){
             case 1:
-                // cout << "enter head" << endl;
                 cin >> head;
                 l.addhead(head);
                 break;
             case 2:
-                // cout << "enter tail" << endl;
                 cin >> tail;
                 l.addtail(tail);
                 break;
@@ -185,22 +172,18 @@ int main(){
                 l.removeTail();
                 break;
             case 5:
-                // cout << "enter the data and its postion" << endl;
                 cin >> data >> pos;
                 l.addNode(data,pos);
                 break;
             case 6:
-                // cout << "enter position of the node to remove" << endl;
                 cin >> pos;
                 l.removeNode(pos);
                 break;
             case 7:
-                // cout << "enter the data to find" << endl;
                 cin >> data;
                 l.find(data);
                 break;
             case 8:
-                // cout << "enter the position of the node" << endl;
                 cin >> pos;
                 l.findkth(pos);
                 break;
