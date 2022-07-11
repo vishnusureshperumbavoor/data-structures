@@ -15,16 +15,14 @@ class BST{
     public :
     BST();
     void insert(T);
-    void delbst(treenode *,T);
     void del(T);
-    void preorder();
-    void postorder();
-    void inorder(treenode *);
+    void delbst(treenode *,T);
     void inord();
-    void preorder(treenode *);
+    void inorder(treenode *);
     void preord();
-    void postorder(treenode *);
+    void preorder(treenode *);
     void postord();
+    void postorder(treenode *);
     int find(T);
     T findmin(treenode *);
 };
