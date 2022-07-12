@@ -14,7 +14,6 @@ template <class T>class graph{
         void dfs();
 };
 template <typename T>void graph<T>::readgraph(){
-    // setting matrix to 0
     cout << "Enter the number of nodes" << endl;
     cin >> nodes;
     for(i=0;i<nodes;i++){
