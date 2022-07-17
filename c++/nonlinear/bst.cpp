@@ -52,12 +52,17 @@ template <typename T>
 int BST<T> :: find(T value){
     treenode *p = root;
     while(p!=NULL){
-        if(value < p->data)
+        if(value < p->data){
             p = p->left;
-        else
+        }
+        else if(value > p->data){
             p = p->right;
+        }
+        else{
+            break;
+        }
     }
-    if(p)
+    if(p!=NULL)
         return 1;
     else
         return 0;
@@ -79,6 +84,7 @@ void BST<T> :: delbst(treenode *temp,T value){
         }
     
         if(temp->left == NULL && temp->right == NULL){
+            cout << "entered inside" << endl;
             if(temp->data < q->data)
                 q->left = NULL;
             else
@@ -160,16 +166,16 @@ int main(){
     BST<int> b ;
     int num, data;
     while(num!=6){
-        // cout << "1.insert\n2.delete\n3.preorder\n4.postorder\n5.inorder\n6.exit" << endl;
+        cout << "1.insert\t2.delete\t3.preorder\t4.postorder\t5.inorder\t6.exit" << endl;
         cin >> num;
         switch(num){
             case 1:
-                // cout << "enter number to insert" << endl;
+                cout << "enter number to insert" << endl;
                 cin >> data;
                 b.insert(data);
                 break;
             case 2:
-                // cout << "enter the data to delete" << endl;
+                cout << "enter the data to delete" << endl;
                 cin >> data;
                 b.del(data);
                 break;
