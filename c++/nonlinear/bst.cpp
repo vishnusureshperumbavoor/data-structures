@@ -12,7 +12,7 @@ class BST{
             right = r;
         }
     }*root;
-    public :
+    public:
     BST();
     void insert(T);
     void del(T);
@@ -32,21 +32,20 @@ BST<T> :: BST(){
 }
 template <typename T>
 void BST<T> :: insert(T value){
-    treenode *temp = new treenode(value);
-    treenode *p = root, *q;
+    treenode *p = root, *parent;
     while(p!=NULL){
-        q=p;
+        parent=p;
         if(value < p->data)
             p = p->left;
         else
             p = p->right;
     }
     if(root==NULL)
-        root = temp;
-    else if(value< q->data)
-        q->left = temp;
+        root = new treenode(value);
+    else if(value < parent->data)
+        parent->left = new treenode(value);
     else
-        q->right = temp;
+        parent->right = new treenode(value);
 }
 template <typename T>
 int BST<T> :: find(T value){
@@ -73,42 +72,58 @@ void BST<T> :: del(T value){
 }
 template <typename T>
 void BST<T> :: delbst(treenode *temp,T value){
-    treenode *q;
     if(find(value)){
+        treenode *parent = temp;
         while(temp->data!=value){
-        q=temp;
-        if(value<temp->data)
-            temp=temp->left;
-        else
-            temp=temp->right;
-        }
-    
-        if(temp->left == NULL && temp->right == NULL){
-            cout << "entered inside" << endl;
-            if(temp->data < q->data)
-                q->left = NULL;
+            parent = temp;
+            if(value < temp->data)
+                temp = temp->left;
             else
-                q->right = NULL;
-            delete temp;
+                temp = temp->right;
+        }   
+        if(temp->left == NULL && temp->right == NULL){
+            if(temp==root){
+                delete root;
+                root = NULL;
+            }
+            else{
+                if(temp->data < parent->data)
+                    parent->left = NULL;
+                else
+                    parent->right = NULL;
+                delete temp;
+            }
         }
         else if(temp->left!=NULL && temp->right == NULL){
-            if(temp->data<q->data)
-                q->left=temp->left;
-            else
-                q->right=temp->left;
-            delete temp;
+            if(temp==root){
+                root = temp->left;
+                delete temp;
+            }
+            else{
+                if(temp->data<parent->data)
+                    parent->left = temp->left;
+                else
+                    parent->right = temp->left;
+                delete temp;
+            }
         }
         else if(temp->left==NULL && temp->right != NULL){
-            if(temp->data<q->data)
-                q->left=temp->right;
-            else
-                q->right=temp->right;
-            delete temp;
+            if(temp==root){
+                root = temp->right;
+                delete temp;
+            }
+            else{
+                if(temp->data<parent->data)
+                    parent->left = temp->right;
+                else
+                    parent->right = temp->right;
+                delete temp;
+            }
         }
         else{
             T temp2 = findmin(temp->right);
+            delbst(temp,temp2);
             temp->data = temp2;
-            delbst(temp->right,temp2);
         }
     }
     else{
@@ -128,7 +143,10 @@ T BST<T> :: findmin(treenode *temp){
 }
 template <typename T>
 void BST<T> :: inord(){
-    inorder(root);
+    if(root==NULL)
+        cout << "BST is empty" << endl;
+    else
+        inorder(root);
 }
 template <typename T>
 void BST<T> :: inorder(treenode *temp){
@@ -140,7 +158,10 @@ void BST<T> :: inorder(treenode *temp){
 }
 template <typename T>
 void BST<T> :: preord(){
-    preorder(root);
+    if(root==NULL)
+        cout << "BST is empty" << endl;
+    else
+        preorder(root);
 }
 template <typename T>
 void BST<T> :: preorder(treenode *temp){
@@ -152,7 +173,10 @@ void BST<T> :: preorder(treenode *temp){
 }
 template <typename T>
 void BST<T> :: postord(){
-    postorder(root);
+    if(root==NULL)
+        cout << "BST is empty" << endl;
+    else
+        postorder(root);
 }
 template <typename T>
 void BST<T> :: postorder(treenode *temp){
