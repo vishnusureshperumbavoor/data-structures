@@ -5,8 +5,8 @@ template <class T>class sort{
     int size,i,j;
     public :
         void enterelements();
-        void quicksort(int,int);
-        int partition(int,int);
+        void quicksort(T [],int,int);
+        int partition(T [],int,int);
         void swap(T*,T*);
         void sortedlist();
 };
@@ -17,32 +17,28 @@ template <typename T>void sort<T> :: enterelements(){
     for(i=0;i<size;i++){
         cin >> arr[i];
     }
-    quicksort(0,size-1);
+    quicksort(arr,0,size-1);
 }
-template <typename T>void sort<T> :: quicksort(int low,int high){
+template <typename T>void sort<T> :: quicksort(T arr[],int low,int high){
     if(low<high){
-        int pi = partition(low,high);
-        quicksort(low,pi-1);
-        quicksort(pi+1,high);
+        int pi = partition(arr,low,high);
+        quicksort(arr,low,pi-1);
+        quicksort(arr,pi+1,high);
     }
 }
-template <typename T>int sort<T> :: partition(int low,int high){
-    T pivot = arr[low];
-    int up=high;
-    int down=low;
-    while(down<up){
-        while(arr[down]<=pivot && down<up){
-            down++;
-        }
-        while(arr[up]>pivot){
-            up--;
-        }
-        if(down<up){
-            swap(&arr[down],&arr[up]);
+template <typename T>int sort<T> :: partition(T arr[],int low,int high){
+    T pivot = arr[high];
+    i = low-1;
+    for(j=low;j<high;j++){
+        if(arr[j]<pivot){
+            i++;
+            cout << "first swap(" << arr[i] << "," << arr[j] << ")" << endl;
+            swap(&arr[i],&arr[j]);
         }
     }
-    swap(&arr[low],&arr[up]);
-    return up;
+    cout << "second swap(" << arr[i+1] << "," << arr[high] << ")" << endl;
+    swap(&arr[i+1],&arr[high]);
+    return i+1;
 }
 template <typename T>void sort<T> :: sortedlist(){
     cout << "Sorted List" << endl;
